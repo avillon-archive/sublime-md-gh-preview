@@ -1,0 +1,4 @@
+[
+	{ "caption": "-" },
+	{ "command": "mdgh_preview_tab_toggle", "args": { "group": -1, "index": -1 } }
+]

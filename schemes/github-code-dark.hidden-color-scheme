@@ -1,0 +1,86 @@
+{
+	"name": "GitHub Code Dark",
+	"author": "github-markdown-css v5.9.0 (github-markdown-dark.css) --color-prettylights-syntax-* palette",
+	"globals": {
+		"background": "#151b23",
+		"foreground": "#f0f6fc"
+	},
+	"rules": [
+		{
+			"scope": "comment, punctuation.definition.comment, string.comment",
+			"foreground": "#9198a1"
+		},
+		{
+			"scope": "constant, entity.name.constant, variable.other.constant, variable.language, support.constant, meta.property-name, support.type.property-name, meta.separator",
+			"foreground": "#79c0ff"
+		},
+		{
+			"scope": "entity, entity.name, support.function, meta.function-call variable.function, meta.function-call support.function",
+			"foreground": "#d2a8ff"
+		},
+		{
+			"scope": "entity.name.tag, support.class.component",
+			"foreground": "#7ee787"
+		},
+		{
+			"scope": "keyword, keyword.operator, storage, storage.type",
+			"foreground": "#ff7b72"
+		},
+		{
+			"scope": "storage.modifier.import, storage.modifier.package, storage.type.java",
+			"foreground": "#f0f6fc"
+		},
+		{
+			"scope": "string, punctuation.definition.string, meta.string",
+			"foreground": "#a5d6ff"
+		},
+		{
+			"scope": "string.regexp constant.character.escape",
+			"font_style": "bold",
+			"foreground": "#7ee787"
+		},
+		{
+			"scope": "constant.character.escape",
+			"foreground": "#79c0ff"
+		},
+		{
+			"scope": "entity.name.type, entity.name.class, support.class, support.type, variable.parameter.function.language.special, variable.other.readwrite.alias",
+			"foreground": "#ffa657"
+		},
+		{
+			"scope": "markup.heading, markup.heading entity.name",
+			"foreground": "#1f6feb",
+			"font_style": "bold"
+		},
+		{
+			"scope": "markup.bold",
+			"foreground": "#f0f6fc",
+			"font_style": "bold"
+		},
+		{
+			"scope": "markup.italic",
+			"foreground": "#f0f6fc",
+			"font_style": "italic"
+		},
+		{
+			"scope": "markup.list",
+			"foreground": "#f2cc60"
+		},
+		{
+			"scope": "markup.inserted",
+			"foreground": "#aff5b4"
+		},
+		{
+			"scope": "markup.deleted",
+			"foreground": "#ffdcd7"
+		},
+		{
+			"scope": "markup.changed",
+			"foreground": "#ffdfb6"
+		},
+		{
+			"scope": "invalid.illegal, markup.error",
+			"foreground": "#f85149"
+		}
+	]
+}

@@ -1,0 +1,6 @@
+docs/plan/
+docs/investigation/
+tools/
+__pycache__/
+.pytest_cache/
+.claude/

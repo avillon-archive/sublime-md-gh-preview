@@ -1,0 +1,86 @@
+{
+	"name": "GitHub Code Light",
+	"author": "github-markdown-css v5.9.0 (github-markdown-light.css) --color-prettylights-syntax-* palette",
+	"globals": {
+		"background": "#f6f8fa",
+		"foreground": "#1f2328"
+	},
+	"rules": [
+		{
+			"scope": "comment, punctuation.definition.comment, string.comment",
+			"foreground": "#59636e"
+		},
+		{
+			"scope": "constant, entity.name.constant, variable.other.constant, variable.language, support.constant, meta.property-name, support.type.property-name, meta.separator",
+			"foreground": "#0550ae"
+		},
+		{
+			"scope": "entity, entity.name, support.function, meta.function-call variable.function, meta.function-call support.function",
+			"foreground": "#6639ba"
+		},
+		{
+			"scope": "entity.name.tag, support.class.component",
+			"foreground": "#0550ae"
+		},
+		{
+			"scope": "keyword, keyword.operator, storage, storage.type",
+			"foreground": "#cf222e"
+		},
+		{
+			"scope": "storage.modifier.import, storage.modifier.package, storage.type.java",
+			"foreground": "#1f2328"
+		},
+		{
+			"scope": "string, punctuation.definition.string, meta.string",
+			"foreground": "#0a3069"
+		},
+		{
+			"scope": "string.regexp constant.character.escape",
+			"font_style": "bold",
+			"foreground": "#116329"
+		},
+		{
+			"scope": "constant.character.escape",
+			"foreground": "#0550ae"
+		},
+		{
+			"scope": "entity.name.type, entity.name.class, support.class, support.type, variable.parameter.function.language.special, variable.other.readwrite.alias",
+			"foreground": "#953800"
+		},
+		{
+			"scope": "markup.heading, markup.heading entity.name",
+			"foreground": "#0550ae",
+			"font_style": "bold"
+		},
+		{
+			"scope": "markup.bold",
+			"foreground": "#1f2328",
+			"font_style": "bold"
+		},
+		{
+			"scope": "markup.italic",
+			"foreground": "#1f2328",
+			"font_style": "italic"
+		},
+		{
+			"scope": "markup.list",
+			"foreground": "#3b2300"
+		},
+		{
+			"scope": "markup.inserted",
+			"foreground": "#116329"
+		},
+		{
+			"scope": "markup.deleted",
+			"foreground": "#82071e"
+		},
+		{
+			"scope": "markup.changed",
+			"foreground": "#953800"
+		},
+		{
+			"scope": "invalid.illegal, markup.error",
+			"foreground": "#82071e"
+		}
+	]
+}

@@ -1,0 +1,9 @@
+[
+	// Editor zoom keys of the Default package: in a target view they also scale font_scale.
+	{ "keys": ["ctrl++"], "command": "mdgh_preview_zoom", "args": { "step": 1 },
+	  "context": [{ "key": "mdgh_preview.applicable", "operator": "equal", "operand": true }] },
+	{ "keys": ["ctrl+="], "command": "mdgh_preview_zoom", "args": { "step": 1 },
+	  "context": [{ "key": "mdgh_preview.applicable", "operator": "equal", "operand": true }] },
+	{ "keys": ["ctrl+-"], "command": "mdgh_preview_zoom", "args": { "step": -1 },
+	  "context": [{ "key": "mdgh_preview.applicable", "operator": "equal", "operand": true }] }
+]

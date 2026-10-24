@@ -1,0 +1,33 @@
+[
+	{
+		"keys": ["ctrl+shift+v"],
+		"command": "mdgh_preview_toggle",
+		"context": [{ "key": "mdgh_preview.applicable", "operator": "equal", "operand": true }]
+	},
+	{
+		"keys": ["space"],
+		"command": "mdgh_preview_scroll",
+		"args": { "name": "move", "args": { "by": "pages", "forward": true } },
+		"context": [{ "key": "mdgh_preview.preview", "operator": "equal", "operand": true }]
+	},
+	{
+		"keys": ["shift+space"],
+		"command": "mdgh_preview_scroll",
+		"args": { "name": "move", "args": { "by": "pages", "forward": false } },
+		"context": [{ "key": "mdgh_preview.preview", "operator": "equal", "operand": true }]
+	},
+	// ST does not dispatch move-by-lines while the view has no selection, so on_text_command never
+	// sees the arrow keys of a preview view.
+	{
+		"keys": ["up"],
+		"command": "mdgh_preview_scroll",
+		"args": { "name": "move", "args": { "by": "lines", "forward": false } },
+		"context": [{ "key": "mdgh_preview.preview", "operator": "equal", "operand": true }]
+	},
+	{
+		"keys": ["down"],
+		"command": "mdgh_preview_scroll",
+		"args": { "name": "move", "args": { "by": "lines", "forward": true } },
+		"context": [{ "key": "mdgh_preview.preview", "operator": "equal", "operand": true }]
+	}
+]

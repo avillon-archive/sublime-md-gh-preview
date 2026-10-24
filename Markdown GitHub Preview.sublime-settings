@@ -1,0 +1,41 @@
+{
+	// File extensions shown with the preview (without the dot).
+	"file_extensions": ["md", "markdown", "mdown", "mkd", "mkdn"],
+
+	// Syntax scope selector of target files, checked in addition to file_extensions: a file
+	// with another extension that uses a Markdown syntax is a target too. "" turns it off.
+	"syntax_selector": "text.html.markdown",
+
+	// "github-light", "github-dark" or "auto" (follows the editor color scheme).
+	"theme": "github-light",
+
+	// Extra CSS files appended after the theme CSS (resource or absolute paths).
+	"custom_css": [],
+
+	// Body and code fonts (one font name each). null uses the platform default:
+	// Windows "Segoe UI" / "Consolas", macOS "Helvetica Neue" / "Menlo",
+	// Linux "DejaVu Sans" / "DejaVu Sans Mono".
+	"font_body": null,
+	"font_mono": null,
+
+	// Body text size = GitHub's 16px x font_scale. In a Markdown file the editor zoom keys and
+	// Ctrl+wheel change font_size by 1 and this by the same ratio; both are saved.
+	"font_scale": 1.0,
+
+	// Maximum body width in px at GitHub's 16px body size (scales with the text); 0 = full width.
+	"content_max_width": 980,
+
+	// Reopen files in the mode and at the place they were left.
+	"remember_mode": true,
+
+	// Toggle button: "icon+text", "text" or "none".
+	"toggle_button": "icon+text",
+
+	// Files larger than this many bytes are not previewed.
+	"max_file_size": 300000,
+
+	// Download remote (http/https) PNG/JPG/GIF images and show them. Off: no network use, they
+	// show as alt text links. Downloads are cached in the Sublime Text cache folder
+	// (sublime-md-gh-preview/images, at most 200 MB); one image is at most 5 MB.
+	"remote_images": false
+}
