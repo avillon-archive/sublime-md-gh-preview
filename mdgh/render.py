@@ -42,12 +42,16 @@ STRUT = '<span class="strut">\u200b</span>\u200b'
 # box once the span fits on the line and leaves it there when the glued tail then moves the whole
 # word to the next line; this space lets the tail wrap alone. U+200B is no break point there.
 CODE_BREAK = '<span class="cb"> </span>'
+# Body-font zero-width space in front of a code span or kbd box in flowing text: minihtml never
+# breaks a line at it, so a wrapped line holding only the box still gets the body line height
+# instead of the shorter code-font one (the same job as the second half of STRUT).
+CODE_LEAD = '​'
 BACKREF_TEXT = '\u21a9'
 
 # Raw HTML tags the preview renders; any other tag stays escaped source text. details is always
 # open: its summary is a title line with this marker, its content blocks follow as usual.
 HTML_SUBSET = frozenset({'br', 'kbd', 'sub', 'sup', 'img', 'details', 'summary'})
-_HTML_INLINE_SPANS = {'kbd': ('<code class="kbd">', '</code>'),
+_HTML_INLINE_SPANS = {'kbd': (CODE_LEAD + '<code class="kbd">', '</code>'),
                       'sub': ('<span class="sub">', '</span>'),
                       'sup': ('<span class="sup">', '</span>')}
 SUMMARY_MARKER = '\u25be'
@@ -396,7 +400,8 @@ class _Renderer:
                 out.append('<br>')
                 row = None if row is None else row + 1
             elif ty == 'code_inline':
-                out.append('<code>%s</code>' % self._run(c.content, row, link, _keep_spaces))
+                out.append('%s<code>%s</code>' % (CODE_LEAD, self._run(c.content, row, link,
+                                                                       _keep_spaces)))
                 if _glued(children, i):
                     out.append(CODE_BREAK)
             elif ty == 'strong_open':

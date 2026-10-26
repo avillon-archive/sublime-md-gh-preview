@@ -133,6 +133,13 @@ def test_glued_code_box_gets_a_break_after_it(text, breaks):
     assert outs[0].count(render.CODE_BREAK) == breaks
 
 
+def test_every_flowing_code_box_has_a_body_font_lead():
+    _, outs = render_all('# h `a`\n\n- x `b` <kbd>K</kbd>\n\n<kbd>L</kbd> and `c`\n')
+    out = ''.join(outs)
+    assert out.count('<code') == 5
+    assert out.count(render.CODE_LEAD + '<code') == 5
+
+
 def test_strikethrough_uses_border_spans_not_line_through():
     out = render_all('~~gone~~\n')[1][0]
     assert out.count('class="del"') == 1 and 'line-through' not in out
