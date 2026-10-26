@@ -66,7 +66,7 @@ ul, .oc { padding-left: {px.indent}; }
 .th { font-weight: bold; }
 .st { background-color: {c.table-stripe}; }
 .strut, .fmr { font-family: {font_mono}; }
-.sp, .hr { font-size: 1px; }
+.sp, .hr, .cb { font-size: 1px; }
 .im { line-height: 1px; }
 .kbd { border: var(--mdgh-rule); }
 .hr { border-bottom: {px.hr} solid {c.hr}; }

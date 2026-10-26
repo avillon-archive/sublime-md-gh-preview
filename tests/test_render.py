@@ -119,6 +119,20 @@ def test_inline_html_comments_are_hidden():
     assert 'hidden' not in ''.join(outs)
 
 
+@pytest.mark.parametrize('text, breaks', [
+    ('a 기록(`x.json`·egg-info `y` 류)\n', 1),
+    ('the `x`, then\n', 1),
+    ('the `x`**bold**\n', 1),
+    ('the `x` then `y`\n', 0),
+    ('the `x`\nnext\n', 0),
+    ('the <kbd>Ctrl</kbd>+C\n', 1),
+    ('the <kbd>Ctrl</kbd> C\n', 0),
+])
+def test_glued_code_box_gets_a_break_after_it(text, breaks):
+    _, outs = render_all(text)
+    assert outs[0].count(render.CODE_BREAK) == breaks
+
+
 def test_strikethrough_uses_border_spans_not_line_through():
     out = render_all('~~gone~~\n')[1][0]
     assert out.count('class="del"') == 1 and 'line-through' not in out

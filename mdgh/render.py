@@ -38,6 +38,10 @@ SPACER_SRC = 'res://' + theme.resource_path('icons/spacer.png')
 # raw front matter) the body line height: cells are inline-blocks on one baseline, so a shorter
 # cell would sit lower than its neighbours.
 STRUT = '<span class="strut">\u200b</span>\u200b'
+# 1px-font space after a code span or kbd box with a word glued to its end. minihtml draws the
+# box once the span fits on the line and leaves it there when the glued tail then moves the whole
+# word to the next line; this space lets the tail wrap alone. U+200B is no break point there.
+CODE_BREAK = '<span class="cb"> </span>'
 BACKREF_TEXT = '\u21a9'
 
 # Raw HTML tags the preview renders; any other tag stays escaped source text. details is always
@@ -77,6 +81,24 @@ def html_pieces(s):
     if pos < len(s):
         out.append(('text', s[pos:]))
     return out
+
+
+def _glued(children, i):
+    """Whether the flowing text after children[i] goes on with no space in between."""
+    for c in children[i + 1:]:
+        ty = c.type
+        if ty in ('softbreak', 'hardbreak'):
+            return False
+        if ty in ('text', 'code_inline'):
+            if c.content:
+                return c.content[0] not in ' \t'
+        elif ty == 'html_inline':
+            if not is_comment_only(c.content):
+                tag = _single_tag(c.content)
+                return tag is None or tag[1] != 'br'
+        elif ty in ('image', 'footnote_ref'):
+            return True
+    return False
 
 
 def _single_tag(content):
@@ -362,7 +384,8 @@ class _Renderer:
         link = 0
         stack = []
         w = self.ctx.avail if w is None else w
-        for c in children or ():
+        children = children or ()
+        for i, c in enumerate(children):
             ty = c.type
             if ty == 'text':
                 out.append(self._run(c.content, row, link))
@@ -374,6 +397,8 @@ class _Renderer:
                 row = None if row is None else row + 1
             elif ty == 'code_inline':
                 out.append('<code>%s</code>' % self._run(c.content, row, link, _keep_spaces))
+                if _glued(children, i):
+                    out.append(CODE_BREAK)
             elif ty == 'strong_open':
                 out.append('<b>')
             elif ty == 'strong_close':
@@ -400,8 +425,11 @@ class _Renderer:
             elif ty == 'html_inline':
                 if not is_comment_only(c.content):
                     tag = _single_tag(c.content)
-                    out.append(self._run(c.content, row, link) if tag is None
-                               else self.html_tag(tag, row, link, w, stack))
+                    s = (self._run(c.content, row, link) if tag is None
+                         else self.html_tag(tag, row, link, w, stack))
+                    out.append(s)
+                    if s.endswith('</code>') and _glued(children, i):   # a kbd box closed
+                        out.append(CODE_BREAK)
                 if row is not None:
                     row += c.content.count('\n')
             else:
