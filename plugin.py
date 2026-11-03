@@ -123,6 +123,18 @@ class MDGHPreviewEditSettingsCommand(sublime_plugin.WindowCommand):
         })
 
 
+class MDGHPreviewEditKeymapCommand(sublime_plugin.WindowCommand):
+    """Preferences menu. Package Control names the package after the repository, so the
+    base file path is built from the installed package name rather than written out."""
+
+    def run(self):
+        self.window.run_command('edit_settings', {
+            'base_file': '${packages}/%s/Default.sublime-keymap' % __package__,
+            'user_file': '${packages}/User/Default.sublime-keymap',
+            'default': '[\n\t$0\n]\n',
+        })
+
+
 class MDGHPreviewEvents(sublime_plugin.EventListener):
     def on_query_context(self, view, key, operator, operand, match_all):
         return controller.query_context(view, key, operator, operand, match_all)

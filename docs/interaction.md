@@ -8,7 +8,7 @@
 | 도구줄 버튼 | §도구줄 버튼 |
 | 탭 우클릭 메뉴 | `Tab Context.sublime-menu`. 인자 `group`·`index` 로 대상 view 를 찾는다 |
 | 편집 영역 우클릭 메뉴 | `Context.sublime-menu` |
-| 명령 팔레트 | `Default.sublime-commands`(`Markdown GitHub Preview: Toggle`). 설정 열기는 `Main.sublime-menu`(Preferences > Package Settings) |
+| 명령 팔레트 | `Default.sublime-commands`(`Markdown GitHub Preview: Toggle`). 설정·단축키 편집은 `Main.sublime-menu`(Preferences > Package Settings) 의 `mdgh_preview_edit_settings`·`mdgh_preview_edit_keymap` |
 | 본문 더블클릭 | §더블클릭 |
 
 - 탭·편집 영역 메뉴 항목의 이름은 명령의 `description()` 이 현재 모드에 맞춰 `Preview` / `Edit Source` 로 바꾼다.

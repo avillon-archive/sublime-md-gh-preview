@@ -32,7 +32,7 @@ Package Control 기본 채널에는 등록되어 있지 않으므로, 이 레포
 
 대상 파일에서 다음 수단으로 전환한다.
 
-- `Ctrl+Shift+V`. 대상이 아닌 파일에서는 Sublime Text 기본 동작(`paste_and_indent`)이 그대로 실행된다.
+- `Ctrl+Shift+V`. 대상이 아닌 파일에서는 Sublime Text 기본 동작(`paste_and_indent`)이 그대로 실행된다. 단축키는 `Preferences > Package Settings > Markdown GitHub Preview > Key Bindings` 에서 `mdgh_preview_toggle` 바인딩을 바꿔 재지정한다.
 - 편집 영역 오른쪽 위의 `Preview` / `Edit` 버튼. 두 모드 모두에서 항상 보이며 문서와 함께 스크롤된다.
 - 탭 우클릭 메뉴와 편집 영역 우클릭 메뉴의 `Preview` / `Edit Source`.
 - 명령 팔레트의 `Markdown GitHub Preview: Toggle`.

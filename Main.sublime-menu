@@ -13,6 +13,10 @@
 							{
 								"caption": "Settings",
 								"command": "mdgh_preview_edit_settings"
+							},
+							{
+								"caption": "Key Bindings",
+								"command": "mdgh_preview_edit_keymap"
 							}
 						]
 					}
