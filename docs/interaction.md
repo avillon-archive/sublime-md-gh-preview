@@ -4,7 +4,7 @@
 
 | 수단 | 구현 |
 |---|---|
-| `Ctrl+Shift+V` | `Default.sublime-keymap` → `mdgh_preview_toggle`, context `mdgh_preview.applicable`(`on_query_context`). 대상이 아닌 view 에서는 Sublime Text 기본 `paste_and_indent` 가 그대로 실행된다 |
+| `Alt+M` | `Default.sublime-keymap` → `mdgh_preview_toggle`, context `mdgh_preview.applicable`(`on_query_context`). 대상이 아닌 view 에서는 바인딩되지 않은 키라 아무 동작도 하지 않는다 |
 | 도구줄 버튼 | §도구줄 버튼 |
 | 탭 우클릭 메뉴 | `Tab Context.sublime-menu`. 인자 `group`·`index` 로 대상 view 를 찾는다 |
 | 편집 영역 우클릭 메뉴 | `Context.sublime-menu` |
@@ -24,7 +24,7 @@
 ### 편집 모드
 
 - 위치는 줄 1 끝(`Region(line(0).b)`)이다. 줄 1 이 한 표시 줄이고 버튼이 들어갈 자리가 있으면 그 줄 오른쪽 끝에 놓인다. 줄 1 이 줄바꿈되면 마지막 표시 줄 오른쪽 끝에 놓이고, 그 줄에 자리가 없으면 다음 표시 줄 오른쪽 끝에 놓인다. 이 경우에만 본문이 한 줄 내려간다. 줄 1 이 길어도 버튼을 숨기지 않는다.
-- 줄 1 끝의 캐럿은 버튼 앞(텍스트 끝)에 그려지므로 캐럿과 버튼이 겹치지 않는다.
+- 줄 1 끝의 캐럿은 버튼 앞(텍스트 끝)에 그려지므로 캐럿과 버튼이 겹치지 않는다. 다만 완전히 빈 버퍼에 처음 버튼을 놓을 때는 캐럿이 phantom 추가 전 x(버튼 뒤, §도구줄 버튼 과 같은 `text_to_layout` 상태)로 그려진 채로 남을 수 있어, `place_edit_button` 이 phantom 을 놓은 뒤 같은 point 의 selection 을 지우고 다시 넣어 캐럿을 그 phantom 기준으로 다시 그리게 한다.
 - 줄 1 끝에 글자를 넣으면 phantom 이 옛 point 에 남아 새 글자가 버튼 뒤에 붙는다. 그래서 `on_modified`(동기 호출, `applies_to_primary_view_only` 가 False 인 ViewEventListener — clone view 마다 버튼이 있다)에서 줄 1 의 끝 point, 마지막 글자, 그 글자의 위치가 바뀌었으면 같은 콜백 안에서 버튼을 새 끝에 다시 놓고 padding 을 다시 계산한다.
 
 ### 미리보기 모드
@@ -36,7 +36,7 @@
 ### 그리는 때와 모양
 
 - 버튼을 그리는 때는 대상 view 가 열리거나 활성화될 때(`on_load`·`on_activated`·`plugin_loaded`), 대상 판정이 바뀔 때(설정 변경, 활성화·폴링 때 확인하는 syntax 변경), 모드가 바뀔 때, 폴링이 폭·글자 크기 변화를 감지할 때다. 모드를 전환할 때만 그리면 새로 연 파일에 버튼이 없다.
-- 모양은 아이콘과 라벨(`Preview` / `Edit`), 흐린 글자색이고, `title` 툴팁은 `Preview (Ctrl+Shift+V)` / `Edit (Ctrl+Shift+V)` 다. 설정 `toggle_button` 이 `icon+text`·`text`·`none` 중에서 모양을 고른다. 고정 UI API 가 없으므로 버튼은 문서와 함께 스크롤된다.
+- 모양은 아이콘과 라벨(`Preview` / `Edit`), 흐린 글자색이고, `title` 툴팁은 `Preview (Alt+M)` / `Edit (Alt+M)` 다. 설정 `toggle_button` 이 `icon+text`·`text`·`none` 중에서 모양을 고른다. 고정 UI API 가 없으므로 버튼은 문서와 함께 스크롤된다.
 - annotation 은 쓰지 않는다. 마우스를 올리면 상자가 커져 아래 줄을 민다. gutter 아이콘은 클릭이 플러그인에 전달되지 않는다.
 
 ## 미리보기 입력 처리
@@ -51,7 +51,7 @@
 ### 텍스트 명령(`on_text_command`)
 
 - `input.BLOCKED_TEXT_COMMANDS`(`drag_select`, `select_all`, undo·redo 계열, fold 계열)는 무효 명령으로 바꾼다.
-- `input.HINT_TEXT_COMMANDS`(문자 입력, 붙여넣기, 삭제, 들여쓰기 등)도 무효 명령으로 바꾸고, 상태바에 `Preview — Ctrl+Shift+V to edit` 를 띄운다.
+- `input.HINT_TEXT_COMMANDS`(문자 입력, 붙여넣기, 삭제, 들여쓰기 등)도 무효 명령으로 바꾸고, 상태바에 `Preview — Alt+M to edit` 를 띄운다.
 - `input.EDIT_TEXT_COMMANDS`(`find_next`·`find_under` 계열)는 편집 모드로 바꾼 뒤 실행한다. 접힌 텍스트에서 찾기 결과가 나오면 Sublime Text 가 fold 를 풀어 화면이 깨지기 때문이다.
 - `move`·`move_to`(PageUp/Down, Home/End, Ctrl+Home/End)는 픽셀 스크롤로 바꾼다(`input.scroll_target`). Page 는 뷰포트 높이 − 줄 높이만큼, Home/End 는 맨 위·맨 아래로 이동한다.
 - 화살표 위/아래는 keymap(context `mdgh_preview.preview`)으로 받아 에디터 줄 높이만큼 픽셀 스크롤한다. selection 이 빈 view 에서는 Sublime Text 가 줄 단위 `move` 를 보내지 않아 `on_text_command` 로 받을 수 없다. `Space`/`Shift+Space` 도 같은 context 의 keymap 으로 페이지 스크롤한다.

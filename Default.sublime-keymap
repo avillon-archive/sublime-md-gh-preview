@@ -1,6 +1,6 @@
 [
 	{
-		"keys": ["ctrl+shift+v"],
+		"keys": ["alt+m"],
 		"command": "mdgh_preview_toggle",
 		"context": [{ "key": "mdgh_preview.applicable", "operator": "equal", "operand": true }]
 	},

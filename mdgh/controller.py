@@ -29,7 +29,7 @@ GOTO_INPUT = 'goto_anything:input'
 NOOP_COMMAND = 'mdgh_preview_noop'
 HEADINGS_COMMAND = 'mdgh_preview_headings'
 SCROLL_COMMAND = 'mdgh_preview_scroll'
-HINT_MSG = 'Preview — Ctrl+Shift+V to edit'
+HINT_MSG = 'Preview — Alt+M to edit'
 MSG_MS = 3000
 CLICK_S = 0.5
 LOAD_WAIT_MS = 50
@@ -68,7 +68,7 @@ _PLATFORM_FONTS = {
     'linux': ('DejaVu Sans', 'DejaVu Sans Mono'),
 }
 BUTTON_LABELS = {'preview': 'Preview', 'edit': 'Edit'}
-BUTTON_TITLES = {'preview': 'Preview (Ctrl+Shift+V)', 'edit': 'Edit (Ctrl+Shift+V)'}
+BUTTON_TITLES = {'preview': 'Preview (Alt+M)', 'edit': 'Edit (Alt+M)'}
 BUTTON_SCALE = 13.0 / 16.0
 BUTTON_ICON_GAP = 0.35   # gap between icon and label, x button font px
 BLOCK_PAD = 32          # GitHub markdown-body side padding at 16px body text
@@ -599,6 +599,14 @@ def place_edit_button(view):
     pid = view.add_phantom(EDIT_BUTTON_KEY, sublime.Region(pt), html, sublime.LAYOUT_INLINE,
                            on_navigate=lambda href, vid=vid: _navigate(vid, href))
     _edit_buttons[vid] = {'html': html, 'geom': geom, 'pid': pid}
+    # A caret already sitting at pt (new, empty buffer) can still be drawn where it was measured
+    # before the phantom existed, i.e. past the button (see _line1_end). Re-asserting the same
+    # selection makes Sublime Text recompute its draw position against the phantom now in place.
+    sel = view.sel()
+    if len(sel) == 1 and sel[0].empty() and sel[0].a == pt:
+        region = sublime.Region(pt)
+        sel.clear()
+        sel.add(region)
 
 
 def remove_edit_button(view):
